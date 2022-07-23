@@ -1,3 +1,4 @@
+import "./nav.css";
 const Nav=(props:{titles:string[]})=>{
 
     return(

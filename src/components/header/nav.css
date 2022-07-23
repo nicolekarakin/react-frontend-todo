@@ -1,0 +1,23 @@
+ul {
+    width: 100%;
+    display: flex;
+    margin: 0;
+    padding: 0 1em 1em 1em;
+    justify-content: flex-start;
+}
+
+ul li {
+    list-style: none;
+    padding: .2em .0em .2em .3em;
+    font-weight: bold;
+    color: #742b83;
+}
+
+ul li a {
+    text-decoration: none;
+    color: black;
+}
+
+ul li a:hover {
+    color: #742b83;
+}

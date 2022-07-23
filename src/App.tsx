@@ -6,7 +6,12 @@ import Header from "./components/header/Header";
 import Addform from "./components/form/Addform";
 import {getAllTodos, postTodo} from "./service/todo-api-service";
 
-
+const styles = {
+    main: {
+        display: "flex",
+        padding: "0 1em"
+    },
+}
 
 function App() {
     const statuses=["OPEN","DONE","IN_PROGRESS"];
@@ -61,7 +66,7 @@ function App() {
   return (
       <><Header />
           <Addform handleSubmit={handleAddItem}  />
-        <main >
+        <main style={styles.main}>
 
         {
             statuses.map(status=><Listing items={allitems} typ={status}/>)

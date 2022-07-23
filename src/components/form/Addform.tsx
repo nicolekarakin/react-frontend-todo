@@ -1,6 +1,6 @@
 import {useState} from "react";
 import ItemType from "../../types/ItemType";
-
+import styles from "./Addform.module.css";
 // Addform.propTypes = {
 //     onAdd: PropTypes.func.isRequired
 // }
@@ -22,14 +22,16 @@ const Addform = (props:AddFormProp)=>{
     //     setData({ ...formData, [name]: value })
     // }
     return (
-        <form id="addItem" >
+        <form id="addItem" className={styles.addform}>
             <label htmlFor="nameF" >Name</label>
             <input id="nameF" type="text" value={item.name} name="name"
+                   className={styles.inputform}
                    onChange={event =>handleChange(event)}
                 // onChange={event => item.name=event.target.value }
             />
             <label htmlFor="descriptionF" >Description</label>
             <input id="descriptionF" type="text" value={item.description} name="description"
+                   className={styles.inputform}
                    onChange={event =>handleChange(event)}
                 // onChange={event =>item.description=event.target.value}
             />

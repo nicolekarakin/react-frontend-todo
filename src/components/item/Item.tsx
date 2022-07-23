@@ -1,3 +1,4 @@
+import "./item.css";
 const Item=({...props})=>{ // (props:ItemTypo)
 
     return(

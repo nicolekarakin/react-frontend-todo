@@ -4,7 +4,7 @@ const Nav=(props:{titles:string[]})=>{
         <nav>
             <ul>
                 {props.titles
-                    .map((item,index)=><li key={index}>{item}</li>)
+                    .map((item,index)=><li key={index.toString()}>{item}</li>)
                 }
             </ul>
         </nav>

@@ -5,7 +5,8 @@ type ItemType={
     name:string,
     description:string,
     // status:StatusType
-    status: "OPEN"|"IN_PROGRESS"|"DONE"
+    status: "OPEN"|"IN_PROGRESS"|"DONE",
+    dateCreated?:string
 }
 
 export default ItemType;

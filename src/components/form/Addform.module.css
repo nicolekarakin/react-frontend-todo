@@ -1,5 +1,10 @@
 .addform{
-    padding: 0 1.4em;
+    padding-left: 1.4em;
+    color:white;
+    margin-top: 1em;
+    background: #742b83;
+    border-top:2px solid violet;
+    border-bottom:2px solid violet;
 }
 .inputform{
     margin-right:1.8em;

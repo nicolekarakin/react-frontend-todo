@@ -1,6 +1,6 @@
 article {
     color: #472947;
-    background-color: #ffbcf6;
+    background-color: #eedbf87d;
     padding: 1.3em;
     margin: 1em;
     border-radius: 12px;
@@ -19,13 +19,10 @@ article {
 
     justify-content: space-between;
 }
-section{
-    display: flex;
-    flex-direction: column;
-}
+
 h3{
     font-size: 1.5em;
-    color:white;
+    color:#742b83;
     margin-top: 0;
 }
 a{
@@ -33,6 +30,23 @@ a{
 }
 a:hover{
     color:#742b83;
+}
+button.enabled{
+    color:white;
+}
+button.disabled{
+    color:lightblue;
+}
+button{
+    background-color: #fe4ed5;
+    padding: 0.3em;
+    border: 2px solid #742b84;
+    font-weight: bold;
+    margin-right: .6em;
+}
+button.enabled:hover{
+    background-color: #742b84;
+    cursor: pointer;
 }
 img{
     border: 1px solid white;

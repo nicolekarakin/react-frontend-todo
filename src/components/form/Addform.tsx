@@ -9,7 +9,7 @@ type AddFormProp={
 }
 const Addform = (props:AddFormProp)=>{
 
-    // const [item, setItem] = useState<ItemType>({status:"OPEN"} as ItemType)
+    // const [isDisabled, setIsDisabled] = useState<boolean>(true)
     const [item, setItem] = useState<ItemType>({status:"OPEN",name:"",description:""} as ItemType)
     const handleChange = (event: any) => {
         setItem({ ...item, [event.target.name]: event.target.value });
@@ -21,6 +21,7 @@ const Addform = (props:AddFormProp)=>{
     //     const { name, value } = event.target
     //     setData({ ...formData, [name]: value })
     // }
+
     return (
         <form id="addItem" className={styles.addform}>
             <label htmlFor="nameF" >Name</label>
@@ -36,6 +37,8 @@ const Addform = (props:AddFormProp)=>{
                 // onChange={event =>item.description=event.target.value}
             />
             <button type="button"
+                    className={(!!item.name && !!item.description)?"enabled":"disabled"}
+                    disabled={(!!item.name && !!item.description)?undefined:true}
                     onClick={event => {props.handleSubmit(item); resetForm()}}>Add</button>
         </form>
     )

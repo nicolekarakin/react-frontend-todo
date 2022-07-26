@@ -10,9 +10,10 @@ type AddFormProp={
 }
 const Addform = (props:AddFormProp)=>{
 
-    // const [isDisabled, setIsDisabled] = useState<boolean>(true)
+    const [errorMessage, setErrorMessage] = useState("")
     const [item, setItem] = useState<ItemType>({status:"OPEN",name:"",description:""} as ItemType)
     const handleChange = (event: any) => {
+        if(!!errorMessage.length)setErrorMessage("")
         setItem({ ...item, [event.target.name]: event.target.value });
     };
     const resetForm = () => {
@@ -21,9 +22,13 @@ const Addform = (props:AddFormProp)=>{
     const handleSubmit = (event:FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         props.handleSubmit(item)
-            .then(()=>resetForm())
-            .catch(error => console.error(error))
-
+            .then(()=> {
+                resetForm()
+            })
+            .catch(error => {
+                console.error(error)
+                setErrorMessage(error.message)
+            })
     }
 
     return (
@@ -46,6 +51,7 @@ const Addform = (props:AddFormProp)=>{
                     disabled={(!!item.name && !!item.description)?undefined:true}
                     // onClick={event => {props.handleSubmit(item); resetForm()}}
                     >Add</button>
+            <span className={"message"}>{errorMessage}</span>
         </form>
     )
 }

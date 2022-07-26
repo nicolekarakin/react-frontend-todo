@@ -1,11 +1,12 @@
-import {useState} from "react";
+import {FormEvent, FormEventHandler, useState} from "react";
 import ItemType from "../../types/ItemType";
 import styles from "./Addform.module.css";
 // Addform.propTypes = {
 //     onAdd: PropTypes.func.isRequired
 // }
 type AddFormProp={
-    handleSubmit: (item:ItemType)=>void
+    // handleSubmit: (item:ItemType)=>void
+    handleSubmit: (item:ItemType)=>Promise<void>
 }
 const Addform = (props:AddFormProp)=>{
 
@@ -17,13 +18,17 @@ const Addform = (props:AddFormProp)=>{
     const resetForm = () => {
         setItem({status:"OPEN",name:"",description:""} as ItemType)
     }
-    // const handleChange = event => {
-    //     const { name, value } = event.target
-    //     setData({ ...formData, [name]: value })
-    // }
+    const handleSubmit = (event:FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        props.handleSubmit(item)
+            .then(()=>resetForm())
+            .catch(error => console.error(error))
+
+    }
 
     return (
-        <form id="addItem" className={styles.addform}>
+        <form id="addItem" className={styles.addform}
+        onSubmit={handleSubmit}>
             <label htmlFor="nameF" >Name</label>
             <input id="nameF" type="text" value={item.name} name="name"
                    className={styles.inputform}
@@ -36,10 +41,11 @@ const Addform = (props:AddFormProp)=>{
                    onChange={event =>handleChange(event)}
                 // onChange={event =>item.description=event.target.value}
             />
-            <button type="button"
+            <button type="submit"
                     className={(!!item.name && !!item.description)?"enabled":"disabled"}
                     disabled={(!!item.name && !!item.description)?undefined:true}
-                    onClick={event => {props.handleSubmit(item); resetForm()}}>Add</button>
+                    // onClick={event => {props.handleSubmit(item); resetForm()}}
+                    >Add</button>
         </form>
     )
 }

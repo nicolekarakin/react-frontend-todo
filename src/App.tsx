@@ -1,11 +1,11 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import './App.css';
-import ItemType from "./types/ItemType";
+
 import Listing from "./components/listing/Listing";
 import Header from "./components/header/Header";
 import Addform from "./components/form/Addform";
-import {deleteTodo, getAllTodos, postTodo, putTodo} from "./service/todo-api-service";
-import itemType from "./types/ItemType";
+
+import useItems from "./hooks/useItems";
 
 const styles = {
     main: {
@@ -25,7 +25,8 @@ const styles = {
 }
 
 function App() {
-    const statuses=["OPEN","IN_PROGRESS","DONE"];
+
+    const {allitems,statuses,handleAddItem,handleDelete,handleLeft,handleRight}=useItems()
     // const items:ItemType[]=[
     //     {name:"Florian",id:"asd1",
     //     description:"BlaBlaBla BlaBlaBla vv BlaBlaBla BlaBlaBla",status:"OPEN"},
@@ -34,65 +35,7 @@ function App() {
     //     {name:"Florian3",id:"asd3",
     //         description:"BlaBlaBla BlaBlaBla vv BlaBlaBla BlaBlaBla",status:"IN_PROGRESS"},
     //     ]
-    const [allitems,setAllItems]=useState<ItemType[]>([])
 
-    useEffect(() => {
-        getAllTodos()
-            .then((allitems: React.SetStateAction<ItemType[]>) => {
-                setAllItems(allitems)
-                // console.log("length: "+allitems.length)
-            })
-            .catch((error?:any) => console.error(error))
-    }, [])
-
-    const handleAddItem=(item:ItemType)=>{
-        // console.log("new item: ", {...item})
-        postTodo(item)
-            .then(() => getAllTodos())
-            .then(todos => setAllItems(todos))
-            .catch(error => console.error(error))
-        //setAllItems([ item, ...allitems])
-    }
-    const handleDelete=(item:ItemType)=>{
-        deleteTodo(item.id)
-            .then(() => getAllTodos())
-            .then(todos => setAllItems(todos))
-            .catch(error => console.error(error))
-    }
-    const handlePut=(item:ItemType)=>{
-        // console.log("in put====",{...item})
-        putTodo(item)
-            .then(() => getAllTodos())
-            .then(todos => setAllItems(todos))
-            .catch(error => console.error(error))
-    }
-    const handleLeft=(item:ItemType)=> {
-        // @ts-ignore
-        const newStatus = toLeftOrRight(item.status, "left")
-        const newItem = { ...item, status: newStatus } as itemType
-        handlePut(newItem)
-    }
-    const handleRight=(item:ItemType)=>{
-        // @ts-ignore
-        const newStatus = toLeftOrRight(item.status, "right")
-        const newItem = { ...item, status: newStatus } as itemType
-        handlePut(newItem)
-    }
-    const toLeftOrRight=(currstatus:string, direction:string)=>{
-        let newStatus:string=""
-        const index=statuses.indexOf(currstatus)
-        if(index===-1)throw new Error('Such status doesn\'t exist');
-        if(direction==="left"){
-            const newStatusInd=(index===0)?(statuses.length-1):(index-1)
-            newStatus=statuses[newStatusInd]
-            // console.log("left",index,newStatusInd)
-        }else if(direction==="right"){
-            const newStatusInd=((statuses.length-1)===index)?(0):(index+1)
-            newStatus=statuses[newStatusInd]
-            // console.log("right",index,newStatusInd)
-        }
-        return newStatus
-    }
 
     // const handleEditItem=(item:ItemType)=>{
     //     console.log("edited item: ", {...item})
@@ -117,7 +60,7 @@ function App() {
 
   return (
       <><Header />
-          <Addform handleSubmit={handleAddItem}  />
+        <Addform handleSubmit={handleAddItem}  />
         <main style={styles.main}>
 
         {
